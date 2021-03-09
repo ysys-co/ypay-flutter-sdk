@@ -8,7 +8,10 @@
 
 ```yaml
 dependencies:
-  ypay: ^x.x.x
+  ypay:
+    git:
+      url: git://github.com/ysys-co/ypay-flutter-sdk.git
+      ref: 0.0.3-beta
 ```
 
 1. Add to your `strings.xml`
