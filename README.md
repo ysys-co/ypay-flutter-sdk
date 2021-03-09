@@ -22,7 +22,7 @@ dependencies:
             <action android:name="android.intent.action.VIEW" />
             <category android:name="android.intent.category.DEFAULT" />
             <category android:name="android.intent.category.BROWSABLE" />
-            <data android:scheme="<YOUR_APP_NAME>" />
+            <data android:scheme="<SCHEMA_URL>" />
         </intent-filter>
     </activity>
 
@@ -34,8 +34,9 @@ dependencies:
 
 ```dart
 final ypay = YPay(
-    baseUrl: '<YPAY_BACKEND_BASE_URL>',
-    clientId: '<YOUR_CLIENT_ID>',
+    name: '<PROUDCT_NAME>', // For example floosak
+    baseUrl: '<YPAY_PRODUCT_BASE_URL>', // For exmaple https://floosak1.ysys.co
+    clientId: '<CLIENT_ID>',
 );
 ```
 

@@ -9,9 +9,6 @@ environment:
   flutter: ">=1.17.0"
 
 dependencies:
-  flutter:
-    sdk: flutter
-
   # OAuth2 callback
   flutter_web_auth: ^0.2.4
   # Store token securely

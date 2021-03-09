@@ -4,7 +4,6 @@ import 'dart:convert';
 
 import 'package:oauth2/oauth2.dart' as oauth2;
 import 'package:flutter_web_auth/flutter_web_auth.dart';
-import 'package:ypay/src/constants.dart' as constants;
 import 'package:ypay/src/models/user.dart';
 import 'package:ypay/src/token.dart';
 
@@ -12,27 +11,26 @@ export 'src/models/user.dart';
 export 'src/models/purchase.dart';
 
 class YPay {
-  static String baseUrl;
   final String _clientId;
+  final Iterable<String> _scopes;
   final Uri _authorizationUrl;
   final Uri _tokenUrl;
   final String _callbackUrlScheme;
-  final Iterable<String> scopes;
 
+  static String baseUrl;
   static oauth2.Client client;
 
   YPay({
+    String name = 'ypay',
     String baseUrl,
     String clientId,
-    Uri tokenUrl,
-    Uri authorizationUrl,
-    this.scopes = const [''],
+    Iterable<String> scopes = const [''],
   })  : _clientId = clientId,
-        _authorizationUrl =
-            authorizationUrl ?? Uri.parse('$baseUrl/oauth/authorize'),
-        _tokenUrl = tokenUrl ?? Uri.parse('$baseUrl/oauth/token'),
-        _callbackUrlScheme = constants.redirectUrl {
-    YPay.baseUrl = baseUrl ?? constants.baseUrl;
+        _scopes = scopes,
+        _authorizationUrl = Uri.parse('$baseUrl/oauth/authorize'),
+        _tokenUrl = Uri.parse('$baseUrl/oauth/token'),
+        _callbackUrlScheme = '$name-$clientId' {
+    YPay.baseUrl = baseUrl;
     _initialize();
   }
 
@@ -57,7 +55,7 @@ class YPay {
 
     var authorizationUrl = grant.getAuthorizationUrl(
       Uri.parse('$_callbackUrlScheme://'),
-      scopes: scopes,
+      scopes: _scopes,
     );
 
     final result = await FlutterWebAuth.authenticate(
@@ -65,16 +63,15 @@ class YPay {
       callbackUrlScheme: _callbackUrlScheme,
     );
 
-    return grant
-        .handleAuthorizationResponse(Uri.parse(result).queryParameters)
-        .then((client) async {
-      await Token.write(client.credentials);
+    client = await grant
+        .handleAuthorizationResponse(Uri.parse(result).queryParameters);
 
-      return user;
-    });
+    await Token.write(client.credentials);
+
+    return user;
   }
 
   Future<User> get user async => client
-      .get('${YPay.baseUrl}/api/user')
+      .get('$baseUrl/api/user')
       .then((response) => User.fromMap(json.decode(response.body)));
 }
