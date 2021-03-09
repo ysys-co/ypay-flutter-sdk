@@ -5,7 +5,6 @@ final locator = GetIt.instance;
 
 void initialize() {
   locator.registerLazySingleton(() => YPay(
-        baseUrl: 'http://10.0.2.2:8000',
         clientId: '92e78186-1bdc-437f-9804-8878ed473fe5',
       ));
 }

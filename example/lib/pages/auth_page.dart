@@ -28,7 +28,7 @@ class AuthPage extends StatelessWidget {
                       alignment: Alignment.centerLeft,
                       child: Image.asset(
                         'assets/floosak.png',
-                        height: 24,
+                        height: 22,
                         color: Colors.white,
                       ),
                     ),
