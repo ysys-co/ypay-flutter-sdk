@@ -2,6 +2,7 @@ library ypay;
 
 import 'dart:convert';
 
+import 'package:flutter/services.dart';
 import 'package:oauth2/oauth2.dart' as oauth2;
 import 'package:flutter_web_auth/flutter_web_auth.dart';
 import 'package:ypay/src/models/user.dart';
@@ -11,30 +12,31 @@ export 'src/models/user.dart';
 export 'src/models/purchase.dart';
 
 class YPay {
-  final String _clientId;
   final Iterable<String> _scopes;
   final Uri _authorizationUrl;
   final Uri _tokenUrl;
-  final String _callbackUrlScheme;
 
   static String baseUrl;
   static oauth2.Client client;
+  static const MethodChannel _channel = const MethodChannel('ypay');
+
+  String _clientId;
+  String _schemeUrl;
 
   YPay({
-    String name = 'ypay',
     String baseUrl,
-    String clientId,
     Iterable<String> scopes = const [''],
-  })  : _clientId = clientId,
-        _scopes = scopes,
+  })  : _scopes = scopes,
         _authorizationUrl = Uri.parse('$baseUrl/oauth/authorize'),
-        _tokenUrl = Uri.parse('$baseUrl/oauth/token'),
-        _callbackUrlScheme = '$name-$clientId' {
+        _tokenUrl = Uri.parse('$baseUrl/oauth/token') {
     YPay.baseUrl = baseUrl;
     _initialize();
   }
 
   _initialize() async {
+    _clientId ??= await _channel.invokeMethod<String>('getClientId');
+    _schemeUrl = 'ypay-$_clientId';
+
     if (await Token.isExists) {
       client = oauth2.Client(
         await Token.read(),
@@ -45,6 +47,10 @@ class YPay {
   }
 
   Future<User> authenticate() async {
+    await _initialize();
+
+    if (client != null) return user;
+
     // If we don't have OAuth2 credentials yet, we need to get the resource owner
     // to authorize us. We're assuming here that we're a command-line application.
     var grant = oauth2.AuthorizationCodeGrant(
@@ -54,13 +60,13 @@ class YPay {
     );
 
     var authorizationUrl = grant.getAuthorizationUrl(
-      Uri.parse('$_callbackUrlScheme://'),
+      Uri.parse('$_schemeUrl://'),
       scopes: _scopes,
     );
 
     final result = await FlutterWebAuth.authenticate(
       url: authorizationUrl.toString(),
-      callbackUrlScheme: _callbackUrlScheme,
+      callbackUrlScheme: _schemeUrl,
     );
 
     client = await grant

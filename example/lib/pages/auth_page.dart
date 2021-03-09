@@ -4,8 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:ypay/ypay.dart';
 
 class AuthPage extends StatelessWidget {
-  String _message;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,8 +34,6 @@ class AuthPage extends StatelessWidget {
                   ],
                 ),
                 textColor: Colors.white,
-                // 0XFFE20613
-                // 0XFF00689C
                 color: Color(0XFF00689C),
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 disabledColor: Theme.of(context).disabledColor,

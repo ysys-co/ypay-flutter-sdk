@@ -1,6 +1,6 @@
 name: ypay
 description: A simple payment platform.
-version: 0.0.2
+version: 0.0.3
 author: Huthaifah Mustafa
 homepage: https://github.com/ysys-co/ypay-flutter-sdk
 
@@ -9,6 +9,9 @@ environment:
   flutter: ">=1.17.0"
 
 dependencies:
+  flutter:
+    sdk: flutter
+
   # OAuth2 callback
   flutter_web_auth: ^0.2.4
   # Store token securely
@@ -25,6 +28,13 @@ dev_dependencies:
 
 # The following section is specific to Flutter.
 flutter:
+  plugin:
+    platforms:
+      android:
+        package: co.ysys.ypay
+        pluginClass: YPayPlugin
+      ios:
+        pluginClass: YPayPlugin
 
   # To add assets to your package, add an assets section, like this:
   # assets:

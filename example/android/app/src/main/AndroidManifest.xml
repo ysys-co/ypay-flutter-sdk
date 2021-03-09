@@ -44,20 +44,20 @@
             android:name="flutterEmbedding"
             android:value="2" />
 
-        <!-- TODO
-          <meta-data 
-            android:name="co.ysys.ypay"
-            android:value="@string/ypay_client_id"/> 
-        -->
+        <!-- YPay -->
+        <meta-data 
+            android:name="co.ysys.ypay.clientId"
+            android:value="@string/ypay_client_id" /> 
 
         <activity android:name="com.linusu.flutter_web_auth.CallbackActivity" >
             <intent-filter android:label="flutter_web_auth">
               <action android:name="android.intent.action.VIEW" />
               <category android:name="android.intent.category.DEFAULT" />
               <category android:name="android.intent.category.BROWSABLE" />
-              <data android:scheme="floosak-92e8ae3b-144f-49d9-ab60-fee5fd140988" />
-              <!-- TODO <data android:scheme="@string/ypay_scheme" /> -->
+              <data android:scheme="@string/ypay_auth_scheme" />
             </intent-filter>
         </activity>
+        <!-- End YPay -->
+
     </application>
 </manifest>

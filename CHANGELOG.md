@@ -1,10 +1,13 @@
-## 0.0.2-beta - 2021-03-11
+## 0.0.3-beta
 
-- Remove flutter from dependecies.
+- Move client credentials to `AndroidManifest` instead of passing as params.
+
+## 0.0.2-beta
+
 - Fix issue when fist client instance created.
 - Improve code & docs.
 
-## 0.0.1-beta - 2021-03-10
+## 0.0.1-beta
 
 - First release.
 - Support purchase.

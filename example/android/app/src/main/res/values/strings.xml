@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ypay_client_id">92e78186-1bdc-437f-9804-8878ed473fe5</string>
+    <string name="ypay_auth_scheme">ypay-92e78186-1bdc-437f-9804-8878ed473fe5</string>
+</resources>

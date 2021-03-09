@@ -11,18 +11,36 @@ dependencies:
   ypay: ^x.x.x
 ```
 
-2. Add to your `AndroidManifest.xml`
+1. Add to your `strings.xml`
+
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- ... -->
+
+    <string name="ypay_client_id">YPAY_CLIENT_ID</string>
+    <string name="ypay_auth_scheme">ypay-YPAY_CLIENT_ID</string>
+
+    <!-- ... -->
+</resources>
+```
+
+1. Add to your `AndroidManifest.xml`
 
 ```xml
 <application>
     <!-- ... -->
+
+    <meta-data
+        android:name="co.ysys.ypay.clientId"
+        android:value="@string/ypay_client_id" />
 
     <activity android:name="com.linusu.flutter_web_auth.CallbackActivity">
         <intent-filter android:label="flutter_web_auth">
             <action android:name="android.intent.action.VIEW" />
             <category android:name="android.intent.category.DEFAULT" />
             <category android:name="android.intent.category.BROWSABLE" />
-            <data android:scheme="<SCHEMA_URL>" />
+            <data android:scheme="@string/ypay_auth_scheme" />
         </intent-filter>
     </activity>
 
@@ -30,13 +48,11 @@ dependencies:
 </application>
 ```
 
-3. Create YPay object.
+1. Create YPay object.
 
 ```dart
 final ypay = YPay(
-    name: '<PROUDCT_NAME>', // For example floosak
-    baseUrl: '<YPAY_PRODUCT_BASE_URL>', // For exmaple https://floosak1.ysys.co
-    clientId: '<CLIENT_ID>',
+    baseUrl: '<YPAY_PRODUCT_BASE_URL>', // For exmaple https://staging.qc.ysys.co
 );
 ```
 
