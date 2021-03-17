@@ -9,6 +9,7 @@ class AuthPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Login'),
+        brightness: Brightness.dark,
       ),
       body: Center(
         child: ListView(
@@ -18,27 +19,25 @@ class AuthPage extends StatelessWidget {
             Container(
               width: double.infinity,
               height: 48.0,
-              child: RaisedButton(
-                child: Stack(
-                  alignment: Alignment.center,
+              child: ElevatedButton(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Container(
-                      alignment: Alignment.centerLeft,
-                      child: Image.asset(
-                        'assets/floosak.png',
-                        height: 22,
-                        color: Colors.white,
-                      ),
+                    Text(
+                      'Pay by ',
+                      style: TextStyle(fontSize: 16),
                     ),
-                    Text('Pay with Floosak'),
+                    Image.asset(
+                      'assets/logo.png',
+                      height: 16,
+                      color: Colors.white,
+                    ),
                   ],
                 ),
-                textColor: Colors.white,
-                color: Color(0XFF00689C),
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                disabledColor: Theme.of(context).disabledColor,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(24.0),
+                style: ElevatedButton.styleFrom(
+                  primary: Color(0XFF009FE3),
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  shape: StadiumBorder(),
                 ),
                 onPressed: () async {
                   final user = await locator<YPay>().authenticate();

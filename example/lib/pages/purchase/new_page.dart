@@ -1,4 +1,3 @@
-import 'package:example/locator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:ypay/ypay.dart';
@@ -79,15 +78,19 @@ class _PurchaseNewPageState extends State<PurchaseNewPage> {
             title: Text('Alert'),
             content: Text('Are you sure to pay ${purchase.amount}'),
             actions: [
-              FlatButton(
-                textColor: Colors.red,
+              TextButton(
+                style: TextButton.styleFrom(
+                  primary: Colors.red,
+                ),
                 onPressed: () async => await purchase
                     .cancel()
                     .whenComplete(Navigator.of(context).pop),
                 child: Text('Cancel'),
               ),
-              FlatButton(
-                textColor: Colors.green,
+              TextButton(
+                style: TextButton.styleFrom(
+                  primary: Colors.green,
+                ),
                 onPressed: () async => await purchase
                     .confirm()
                     .whenComplete(Navigator.of(context).pop),
@@ -97,7 +100,7 @@ class _PurchaseNewPageState extends State<PurchaseNewPage> {
           ),
           barrierDismissible: false,
         ).whenComplete(() {
-          _scaffoldKey.currentState
+          ScaffoldMessenger.of(context)
               .showSnackBar(SnackBar(content: Text('Done')));
         });
       });
