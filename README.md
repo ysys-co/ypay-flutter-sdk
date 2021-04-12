@@ -79,6 +79,29 @@ print('You have ${wallets.first.amount} in your first wallet');
 
 # Transactions
 
+## Send
+
+To send money between two entities, all you need to fill the data and pass the user your want to send to
+
+```dart
+final send = Send(
+    amount: 100,
+    to: '967773769681', // Mobile number
+    type: TransactionType.p2p,
+    description: 'Hello World',
+    wallet: user.wallets.first,
+);
+
+send.save() // Save send
+.then((send) => send.confirm()) // Confrim send
+.then((send) {
+    assert(send.isCompleted);
+
+    // Have fun
+});
+
+```
+
 ## Purchase
 
 To create purchase all you need to fill the data and pass merchant code

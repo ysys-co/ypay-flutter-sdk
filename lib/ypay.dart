@@ -8,8 +8,8 @@ import 'package:flutter_web_auth/flutter_web_auth.dart';
 import 'package:ypay/src/models/user.dart';
 import 'package:ypay/src/token.dart';
 
-export 'src/models/user.dart';
-export 'src/models/purchase.dart';
+export 'src/models.dart';
+export 'src/services.dart';
 
 class YPay {
   final Iterable<String> _scopes;
@@ -24,7 +24,7 @@ class YPay {
   String _schemeUrl;
 
   YPay({
-    String baseUrl,
+    String baseUrl = 'https://console.y-pay.co',
     Iterable<String> scopes = const [''],
   })  : _scopes = scopes,
         _authorizationUrl = Uri.parse('$baseUrl/oauth/authorize'),

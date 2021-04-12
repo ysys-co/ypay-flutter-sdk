@@ -1,6 +1,6 @@
 name: ypay
 description: A simple payment platform.
-version: 0.0.3
+version: 0.1.0
 author: Huthaifah Mustafa
 homepage: https://github.com/ysys-co/ypay-flutter-sdk
 

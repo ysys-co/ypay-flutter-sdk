@@ -1,4 +1,5 @@
 import 'package:example/locator.dart';
+import 'package:example/pages/home_page.dart';
 import 'package:example/pages/purchase/new_page.dart';
 import 'package:flutter/material.dart';
 import 'package:ypay/ypay.dart';
@@ -45,8 +46,8 @@ class AuthPage extends StatelessWidget {
 
                   print('Welcome back ${user.name}!');
 
-                  Navigator.of(context).push(
-                      MaterialPageRoute(builder: (_) => PurchaseNewPage()));
+                  Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(builder: (_) => HomePage()));
                 },
               ),
             ),

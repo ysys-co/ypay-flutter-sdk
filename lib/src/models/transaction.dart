@@ -1,32 +1,31 @@
+library ypay;
+
 import 'wallet.dart';
 
-enum TransactionState {
-  completed,
-  rejected,
-  pending,
-  canceled,
-  reversed,
-  requested,
-  unknown,
-}
+part 'transaction_type.dart';
+part 'transaction_state.dart';
 
 abstract class Transaction {
-  int id;
+  final int id;
+  final TransactionState state;
+  final num fee;
+  final num rate;
+  final num net;
+
+  TransactionType type;
   num gross = 0;
-  num fee = 0;
-  num rate = 0;
-  num net = 0;
 
-  int walletId;
-
-  TransactionState state;
+  Wallet wallet;
 
   Transaction({
-    num amount,
-    Wallet wallet,
-  })  : state = TransactionState.pending,
-        gross = amount,
-        walletId = wallet?.id;
+    this.type,
+    this.wallet,
+    this.gross,
+  })  : id = null,
+        state = TransactionState.pending,
+        fee = 0,
+        net = 0,
+        rate = 0;
 
   bool get isCompleted => state == TransactionState.completed;
   bool get isRejected => state == TransactionState.rejected;
@@ -43,10 +42,8 @@ abstract class Transaction {
 
   Transaction.fromMap(Map<String, dynamic> map)
       : id = map['id'],
-        state = (map.containsKey('transaction_state_id') &&
-                TransactionState.values.length >= map['transaction_state_id'])
-            ? TransactionState.values[map['transaction_state_id'] - 1]
-            : TransactionState.unknown,
+        type = TransactionType._(map['transaction_type_id']),
+        state = TransactionState._(map['transaction_state_id']),
         gross = map['gross'],
         fee = map['fee'],
         net = map['net'],
@@ -54,7 +51,36 @@ abstract class Transaction {
 
   Map<String, dynamic> toMap() => {
         'id': id,
-        'transaction_state_id': state.index + 1,
+        'wallet_id': wallet.id,
+        'transaction_type_id': type.id,
+        'transaction_state_id': state.id,
         'amount': gross,
       }..removeWhere((key, value) => value == null);
+
+  @override
+  int get hashCode =>
+      id.hashCode ^
+      type.hashCode ^
+      state.hashCode ^
+      gross.hashCode ^
+      fee.hashCode ^
+      rate.hashCode ^
+      net.hashCode;
+
+  @override
+  bool operator ==(other) =>
+      identical(this, other) &&
+      other is Transaction &&
+      other.id == id &&
+      other.type == type &&
+      other.state == state &&
+      other.gross == gross &&
+      other.fee == fee &&
+      other.rate == rate &&
+      other.net == net;
+
+  @override
+  String toString() {
+    return 'Transaction(id: $id, type: $type, state: $state, gross: $gross, fee: $fee, rate: $rate, net: $net)';
+  }
 }

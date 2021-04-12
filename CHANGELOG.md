@@ -1,3 +1,8 @@
+# 0.1.0
+
+- Add send module.
+- Add ability to send to diffrent types sush as (p2p, p2m, etc...).
+
 ## 0.0.3-beta
 
 - Move client credentials to `AndroidManifest` instead of passing as params.
