@@ -11,7 +11,7 @@ dependencies:
   ypay:
     git:
       url: git://github.com/ysys-co/ypay-flutter-sdk.git
-      ref: 0.0.3-beta
+      ref: 0.1.1
 ```
 
 1. Add to your `strings.xml`
