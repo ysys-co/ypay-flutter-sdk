@@ -6,7 +6,7 @@ import 'package:ypay/ypay.dart';
 extension PurchaseService on Purchase {
   Future<Purchase> save() async => YPay.client
           .post(
-        '${YPay.baseUrl}/api/v1/wallets/${this.wallet.id}/purchases',
+        Uri.parse('${YPay.baseUrl}/api/v1/wallets/${this.wallet.id}/purchases'),
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json',
@@ -26,7 +26,8 @@ extension PurchaseService on Purchase {
     );
 
     return YPay.client.post(
-      '${YPay.baseUrl}/api/v1/wallets/${this.wallet.id}/purchases/${this.id}/confirm',
+      Uri.parse(
+          '${YPay.baseUrl}/api/v1/wallets/${this.wallet.id}/purchases/${this.id}/confirm'),
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
@@ -45,7 +46,8 @@ extension PurchaseService on Purchase {
     );
 
     return YPay.client.post(
-      '${YPay.baseUrl}/api/v1/wallets/${this.wallet.id}/purchases/${this.id}/cancel',
+      Uri.parse(
+          '${YPay.baseUrl}/api/v1/wallets/${this.wallet.id}/purchases/${this.id}/cancel'),
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',

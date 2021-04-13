@@ -6,7 +6,7 @@ import 'package:ypay/ypay.dart';
 extension SendService on Send {
   Future<Send> save() async => YPay.client
           .post(
-        '${YPay.baseUrl}/api/v1/wallets/${this.wallet.id}/sends',
+        Uri.parse('${YPay.baseUrl}/api/v1/wallets/${this.wallet.id}/sends'),
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json',
@@ -26,7 +26,8 @@ extension SendService on Send {
     );
 
     return YPay.client.post(
-      '${YPay.baseUrl}/api/v1/wallets/${this.wallet.id}/sends/${this.id}/confirm',
+      Uri.parse(
+          '${YPay.baseUrl}/api/v1/wallets/${this.wallet.id}/sends/${this.id}/confirm'),
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
@@ -45,7 +46,8 @@ extension SendService on Send {
     );
 
     return YPay.client.post(
-      '${YPay.baseUrl}/api/v1/wallets/${this.wallet.id}/sends/${this.id}/cancel',
+      Uri.parse(
+          '${YPay.baseUrl}/api/v1/wallets/${this.wallet.id}/sends/${this.id}/cancel'),
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',

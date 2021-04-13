@@ -78,6 +78,6 @@ class YPay {
   }
 
   Future<User> get user async => client
-      .get('$baseUrl/api/user')
+      .get(Uri.parse('$baseUrl/api/user'))
       .then((response) => User.fromMap(json.decode(response.body)));
 }

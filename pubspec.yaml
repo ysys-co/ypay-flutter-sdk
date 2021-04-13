@@ -13,11 +13,11 @@ dependencies:
     sdk: flutter
 
   # OAuth2 callback
-  flutter_web_auth: ^0.2.4
+  flutter_web_auth: ^0.3.0
   # Store token securely
-  flutter_secure_storage: ^3.3.5
+  flutter_secure_storage: ^4.1.0
   # OAuth2 client
-  oauth2: ^1.6.3
+  oauth2: ^2.0.0
 
 dev_dependencies:
   flutter_test:
