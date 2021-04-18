@@ -22,7 +22,7 @@ abstract class Transaction {
     this.wallet,
     this.gross,
   })  : id = null,
-        state = TransactionState.pending,
+        state = TransactionState.requested,
         fee = 0,
         net = 0,
         rate = 0;

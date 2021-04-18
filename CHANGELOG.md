@@ -1,3 +1,7 @@
+# 0.1.2
+
+- Set default state as `requested` instead of `pending`.
+
 # 0.1.1
 
 - Upgrade dependencies.
