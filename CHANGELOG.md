@@ -1,5 +1,6 @@
 # 0.1.2
 
+- Fix decodeing send model from response.
 - Set default state as `requested` instead of `pending`.
 
 # 0.1.1
