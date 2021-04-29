@@ -15,7 +15,7 @@ class Send extends Transaction {
 
   @override
   Send.fromMap(Map<String, dynamic> map)
-      : to = map['to_id'],
+      : to = map['to_id'].toString(),
         description = map['description'],
         super.fromMap(map);
 
