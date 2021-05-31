@@ -80,4 +80,10 @@ class YPay {
   Future<User> get user async => client
       .get(Uri.parse('$baseUrl/api/user'))
       .then((response) => User.fromMap(json.decode(response.body)));
+
+  Future signOut() async {
+    return client
+        .post(Uri.parse('$baseUrl/api/v2/me/logout'))
+        .whenComplete(Token.delete);
+  }
 }
