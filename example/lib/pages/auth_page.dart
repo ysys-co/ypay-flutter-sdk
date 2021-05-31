@@ -45,6 +45,8 @@ class AuthPage extends StatelessWidget {
                   final user = await locator<YPay>().authenticate();
 
                   print('Welcome back ${user.name}!');
+                  print('Amount is  ${user.wallets.first.amount}!');
+                  print('Phone Number is is  ${user.id}!');
 
                   Navigator.of(context).pushReplacement(
                       MaterialPageRoute(builder: (_) => HomePage()));

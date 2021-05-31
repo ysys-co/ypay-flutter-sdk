@@ -72,7 +72,12 @@ class _PurchaseNewPageState extends State<PurchaseNewPage> {
     if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
 
+      final user = await locator<YPay>().authenticate();
+      _purchase.wallet = user.wallets.first;
+
       await _purchase.save().then((purchase) async {
+      purchase.wallet = user.wallets.first;
+
         showDialog(
           context: context,
           builder: (_) => AlertDialog(

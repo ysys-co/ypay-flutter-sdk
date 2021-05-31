@@ -1,3 +1,4 @@
+import 'package:example/locator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:ypay/ypay.dart';
@@ -70,7 +71,10 @@ class _SendNewPageState extends State<SendNewPage> {
   _submit() async {
     if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
+      final user = await locator<YPay>().authenticate();
+      _send.wallet = user.wallets.first;
       await _send.save().then((send) async {
+        send.wallet = user.wallets.first;
         showDialog(
           context: context,
           builder: (_) => AlertDialog(

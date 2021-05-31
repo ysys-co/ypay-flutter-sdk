@@ -14,6 +14,7 @@ extension PurchaseService on Purchase {
         body: json.encode(this.toMap()),
       )
           .then((response) {
+            print(response.body.toString());
         assert(response.statusCode == 201, 'Oops, something went wrong');
 
         return Purchase.fromMap(json.decode(response.body));

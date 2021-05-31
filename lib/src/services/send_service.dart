@@ -14,6 +14,7 @@ extension SendService on Send {
         body: json.encode(this.toMap()),
       )
           .then((response) {
+            print(jsonDecode(response.body));
         assert(response.statusCode == 201, 'Oops, something went wrong');
 
         return Send.fromMap(json.decode(response.body));

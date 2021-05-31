@@ -4,5 +4,5 @@ import 'package:ypay/ypay.dart';
 final locator = GetIt.instance;
 
 void initialize() {
-  locator.registerLazySingleton(() => YPay(baseUrl: 'http://10.0.2.2:8000'));
+  locator.registerLazySingleton(() => YPay(baseUrl: 'https://testing.qc.ysys.co'));
 }
