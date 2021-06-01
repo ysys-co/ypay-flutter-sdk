@@ -49,7 +49,7 @@ class YPay {
   Future<User> authenticate() async {
     await _initialize();
 
-    if (client != null) return user;
+    // if (client != null) return user;
 
     // If we don't have OAuth2 credentials yet, we need to get the resource owner
     // to authorize us. We're assuming here that we're a command-line application.
