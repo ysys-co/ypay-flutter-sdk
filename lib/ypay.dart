@@ -1,6 +1,7 @@
 library ypay;
 
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:flutter/services.dart';
 import 'package:oauth2/oauth2.dart' as oauth2;
@@ -49,7 +50,10 @@ class YPay {
   Future<User> authenticate() async {
     await _initialize();
 
-    // if (client != null) return user;
+    if (client != null)
+      if (await Token.isExists) return user;
+
+    // print(await Token.read().then((value) => value.accessToken));
 
     // If we don't have OAuth2 credentials yet, we need to get the resource owner
     // to authorize us. We're assuming here that we're a command-line application.
@@ -73,13 +77,15 @@ class YPay {
         .handleAuthorizationResponse(Uri.parse(result).queryParameters);
 
     await Token.write(client.credentials);
-
     return user;
   }
 
   Future<User> get user async => client
       .get(Uri.parse('$baseUrl/api/user'))
-      .then((response) => User.fromMap(json.decode(response.body)));
+      .then((response) {
+        log(response.body);
+        return User.fromMap(json.decode(response.body));
+      });
 
   Future signOut() async {
     await _initialize();
