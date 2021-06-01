@@ -82,8 +82,11 @@ class YPay {
       .then((response) => User.fromMap(json.decode(response.body)));
 
   Future signOut() async {
+    await _initialize();
+
     return client
         .post(Uri.parse('$baseUrl/api/v2/me/logout'))
-        .whenComplete(Token.delete);
+        .whenComplete(Token.delete)
+        .then((value) => print(value.statusCode));
   }
 }

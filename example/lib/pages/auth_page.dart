@@ -48,8 +48,41 @@ class AuthPage extends StatelessWidget {
                   print('Amount is  ${user.wallets.first.amount}!');
                   print('Phone Number is is  ${user.id}!');
 
-                  Navigator.of(context).pushReplacement(
+                  Navigator.of(context).push(
                       MaterialPageRoute(builder: (_) => HomePage()));
+                },
+              ),
+            ),
+            SizedBox(height: 20.0,),
+            Container(
+              width: double.infinity,
+              height: 48.0,
+              child: RaisedButton(
+                child: Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    Container(
+                      alignment: Alignment.centerLeft,
+                      child: Image.asset(
+                        'assets/floosak.png',
+                        height: 22,
+                        color: Colors.white,
+                      ),
+                    ),
+                    Text('Logout'),
+                  ],
+                ),
+                textColor: Colors.white,
+                color: Color(0XFF00689C),
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                disabledColor: Theme.of(context).disabledColor,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(24.0),
+                ),
+                onPressed: () async {
+                   await locator<YPay>().signOut();
+
+
                 },
               ),
             ),
