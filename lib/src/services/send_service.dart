@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:ypay/src/models/send.dart';
 import 'package:ypay/ypay.dart';
@@ -14,7 +15,6 @@ extension SendService on Send {
         body: json.encode(this.toMap()),
       )
           .then((response) {
-            print(jsonDecode(response.body));
         assert(response.statusCode == 201, 'Oops, something went wrong');
 
         return Send.fromMap(json.decode(response.body));
@@ -27,14 +27,14 @@ extension SendService on Send {
     );
 
     return YPay.client.post(
-      Uri.parse(
-          '${YPay.baseUrl}/api/v1/wallets/${this.wallet.id}/sends/${this.id}/confirm'),
+      Uri.parse('${YPay.baseUrl}/api/v1/wallets/${this.wallet.id}/sends/${this.id}/confirm'),
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
       },
     ).then((response) {
       assert(response.statusCode == 200, 'Oops, something went wrong');
+
 
       return Send.fromMap(json.decode(response.body));
     });
@@ -47,8 +47,7 @@ extension SendService on Send {
     );
 
     return YPay.client.post(
-      Uri.parse(
-          '${YPay.baseUrl}/api/v1/wallets/${this.wallet.id}/sends/${this.id}/cancel'),
+      Uri.parse('${YPay.baseUrl}/api/v1/wallets/${this.wallet.id}/sends/${this.id}/cancel'),
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',

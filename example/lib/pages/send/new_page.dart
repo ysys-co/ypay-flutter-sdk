@@ -25,8 +25,7 @@ class _SendNewPageState extends State<SendNewPage> {
       body: Form(
         key: _formKey,
         child: SingleChildScrollView(
-          padding:
-              const EdgeInsets.symmetric(horizontal: 16).copyWith(bottom: 88),
+          padding: const EdgeInsets.symmetric(horizontal: 16).copyWith(bottom: 88),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
@@ -45,9 +44,7 @@ class _SendNewPageState extends State<SendNewPage> {
                   labelText: 'Amount',
                 ),
                 keyboardType: TextInputType.number,
-                inputFormatters: <TextInputFormatter>[
-                  FilteringTextInputFormatter.digitsOnly
-                ],
+                inputFormatters: <TextInputFormatter>[FilteringTextInputFormatter.digitsOnly],
                 onSaved: (value) => _send.amount = int.parse(value),
               ),
               TextFormField(
@@ -69,9 +66,11 @@ class _SendNewPageState extends State<SendNewPage> {
   }
 
   _submit() async {
+
     if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
       final user = await locator<YPay>().authenticate();
+
       _send.wallet = user.wallets.first;
       await _send.save().then((send) async {
         send.wallet = user.wallets.first;
@@ -82,22 +81,20 @@ class _SendNewPageState extends State<SendNewPage> {
             content: Text('Are you sure to send ${send.amount} to ${send.to}'),
             actions: [
               ElevatedButton(
-                onPressed: () async =>
-                    await send.cancel().whenComplete(Navigator.of(context).pop),
+                onPressed: () async => await send.cancel().whenComplete(Navigator.of(context).pop),
                 child: Text('Cancel'),
               ),
               ElevatedButton(
-                onPressed: () async => await send
-                    .confirm()
-                    .whenComplete(Navigator.of(context).pop),
+                onPressed: () async => await send.confirm().then((confirmedSend){
+                  Navigator.of(context).pop();
+                }),
                 child: Text('Confirm'),
               ),
             ],
           ),
           barrierDismissible: false,
         ).whenComplete(() {
-          _scaffoldKey.currentState
-              .showSnackBar(SnackBar(content: Text('Done')));
+          _scaffoldKey.currentState.showSnackBar(SnackBar(content: Text('Done')));
         });
       });
     }
