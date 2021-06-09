@@ -5,7 +5,7 @@ import 'wallet.dart';
 part 'transaction_type.dart';
 part 'transaction_state.dart';
 
-abstract class Transaction {
+ class Transaction {
   final int id;
   final TransactionState state;
   final num fee;

@@ -86,6 +86,7 @@ class _SendNewPageState extends State<SendNewPage> {
               ),
               ElevatedButton(
                 onPressed: () async => await send.confirm().then((confirmedSend){
+                  print("confirmedSend.transaction.id"+confirmedSend.transaction.id.toString());
                   Navigator.of(context).pop();
                 }),
                 child: Text('Confirm'),

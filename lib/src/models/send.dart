@@ -1,19 +1,15 @@
-import 'dart:convert';
-import 'dart:developer';
-import 'dart:ffi';
-
 import 'transaction.dart';
 import 'wallet.dart';
 
 class Send extends Transaction {
   String to;
   String description;
-  int transactionId;
+  Transaction transaction;
 
   Send({
     this.to,
     this.description,
-    this.transactionId,
+    this.transaction,
     TransactionType type = TransactionType.p2p,
     int amount,
     Wallet wallet,
@@ -23,14 +19,14 @@ class Send extends Transaction {
   Send.fromMap(Map<String, dynamic> map) : super.fromMap(map) {
     to = map['to_id'].toString();
     description = map['description'];
-    transactionId = (map["transaction"] != null ? map["transaction"]["id"] : null);
+    transaction = (map["transaction"] != null ? Transaction.fromMap(map["transaction"]) : null);
   }
 
   @override
   Map<String, dynamic> toMap() => {
         'to_id': to,
         'description': description,
-        'transactionId': transactionId,
+        'transaction': transaction,
         ...super.toMap(),
       };
 
