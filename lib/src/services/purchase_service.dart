@@ -4,9 +4,9 @@ import 'package:ypay/src/models/purchase.dart';
 import 'package:ypay/ypay.dart';
 
 extension PurchaseService on Purchase {
-  Future<Purchase> save() async => YPay.client
+  Future<Purchase> save() async => YPay.client!
           .post(
-        Uri.parse('${YPay.baseUrl}/api/v1/wallets/${this.wallet.id}/purchases'),
+        Uri.parse('${YPay.baseUrl}/api/v1/wallets/${this.wallet!.id}/purchases'),
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json',
@@ -26,9 +26,9 @@ extension PurchaseService on Purchase {
       'Please save ${this.runtimeType.toString().toLowerCase()} first!',
     );
 
-    return YPay.client.post(
+    return YPay.client!.post(
       Uri.parse(
-          '${YPay.baseUrl}/api/v1/wallets/${this.wallet.id}/purchases/${this.id}/confirm'),
+          '${YPay.baseUrl}/api/v1/wallets/${this.wallet!.id}/purchases/${this.id}/confirm'),
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
@@ -46,9 +46,9 @@ extension PurchaseService on Purchase {
       'Please save ${this.runtimeType.toString().toLowerCase()} first!',
     );
 
-    return YPay.client.post(
+    return YPay.client!.post(
       Uri.parse(
-          '${YPay.baseUrl}/api/v1/wallets/${this.wallet.id}/purchases/${this.id}/cancel'),
+          '${YPay.baseUrl}/api/v1/wallets/${this.wallet!.id}/purchases/${this.id}/cancel'),
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',

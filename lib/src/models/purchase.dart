@@ -2,15 +2,15 @@ import 'transaction.dart';
 import 'wallet.dart';
 
 class Purchase extends Transaction {
-  String description;
-  int code;
+  String? description;
+  int? code;
 
   Purchase({
     this.code,
     this.description,
     TransactionType type = TransactionType.p2m,
-    int amount,
-    Wallet wallet,
+    int? amount,
+    Wallet? wallet,
   }) : super(type: type, wallet: wallet, gross: amount);
 
   @override

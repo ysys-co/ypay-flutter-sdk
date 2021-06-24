@@ -5,7 +5,7 @@ author: Huthaifah Mustafa
 homepage: https://github.com/ysys-co/ypay-flutter-sdk
 
 environment:
-  sdk: ">=2.7.0 <3.0.0"
+  sdk: '>=2.12.0 <3.0.0'
   flutter: ">=1.17.0"
 
 dependencies:

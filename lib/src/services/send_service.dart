@@ -5,9 +5,9 @@ import 'package:ypay/src/models/send.dart';
 import 'package:ypay/ypay.dart';
 
 extension SendService on Send {
-  Future<Send> save() async => YPay.client
+  Future<Send> save() async => YPay.client!
           .post(
-        Uri.parse('${YPay.baseUrl}/api/v1/wallets/${this.wallet.id}/sends'),
+        Uri.parse('${YPay.baseUrl}/api/v1/wallets/${this.wallet!.id}/sends'),
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json',
@@ -28,8 +28,8 @@ extension SendService on Send {
       'Please save ${this.runtimeType.toString().toLowerCase()} first!',
     );
 
-    return YPay.client.post(
-      Uri.parse('${YPay.baseUrl}/api/v1/wallets/${this.wallet.id}/sends/${this.id}/confirm'),
+    return YPay.client!.post(
+      Uri.parse('${YPay.baseUrl}/api/v1/wallets/${this.wallet!.id}/sends/${this.id}/confirm'),
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
@@ -48,8 +48,8 @@ extension SendService on Send {
       'Please save ${this.runtimeType.toString().toLowerCase()} first!',
     );
 
-    return YPay.client.post(
-      Uri.parse('${YPay.baseUrl}/api/v1/wallets/${this.wallet.id}/sends/${this.id}/cancel'),
+    return YPay.client!.post(
+      Uri.parse('${YPay.baseUrl}/api/v1/wallets/${this.wallet!.id}/sends/${this.id}/cancel'),
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',

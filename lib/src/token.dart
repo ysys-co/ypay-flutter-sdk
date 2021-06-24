@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:oauth2/oauth2.dart' as oauth2;
 
@@ -9,7 +10,7 @@ class Token {
       await _storage.containsKey(key: _key);
 
   static Future<oauth2.Credentials> read() async =>
-      oauth2.Credentials.fromJson(await _storage.read(key: _key));
+      oauth2.Credentials.fromJson(await (_storage.read(key: _key) as FutureOr<String>));
   static Future delete() async => await _storage.deleteAll();
 
   static Future write(oauth2.Credentials credentials) async =>

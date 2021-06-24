@@ -2,17 +2,17 @@ import 'transaction.dart';
 import 'wallet.dart';
 
 class Send extends Transaction {
-  String to;
-  String description;
-  Transaction transaction;
+  String? to;
+  String? description;
+  Transaction? transaction;
 
   Send({
     this.to,
     this.description,
     this.transaction,
     TransactionType type = TransactionType.p2p,
-    int amount,
-    Wallet wallet,
+    int? amount,
+    Wallet? wallet,
   }) : super(type: type, wallet: wallet, gross: amount);
 
   @override

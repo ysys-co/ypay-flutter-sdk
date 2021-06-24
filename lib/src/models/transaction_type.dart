@@ -1,7 +1,7 @@
 part of 'transaction.dart';
 
 class TransactionType {
-  final int id;
+  final int? id;
 
   const TransactionType._(this.id);
 

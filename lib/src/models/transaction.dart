@@ -6,16 +6,16 @@ part 'transaction_type.dart';
 part 'transaction_state.dart';
 
  class Transaction {
-  final int id;
+  final int? id;
   final TransactionState state;
-  final num fee;
-  final num rate;
-  final num net;
+  final num? fee;
+  final num? rate;
+  final num? net;
 
-  TransactionType type;
-  num gross = 0;
+  TransactionType? type;
+  num? gross = 0;
 
-  Wallet wallet;
+  Wallet? wallet;
 
   Transaction({
     this.type,
@@ -34,11 +34,11 @@ part 'transaction_state.dart';
   bool get isReversed => state == TransactionState.reversed;
   bool get isRequested => state == TransactionState.requested;
 
-  set amount(num value) {
+  set amount(num? value) {
     gross = value;
   }
 
-  num get amount => gross;
+  num? get amount => gross;
 
   Transaction.fromMap(Map<String, dynamic> map)
       : id = map['id'],
@@ -51,8 +51,8 @@ part 'transaction_state.dart';
 
   Map<String, dynamic> toMap() => {
         'id': id,
-        'wallet_id': wallet.id,
-        'transaction_type_id': type.id,
+        'wallet_id': wallet!.id,
+        'transaction_type_id': type!.id,
         'transaction_state_id': state.id,
         'amount': gross,
       }..removeWhere((key, value) => value == null);

@@ -17,12 +17,12 @@ class YPay {
   final Uri _authorizationUrl;
   final Uri _tokenUrl;
 
-  static String baseUrl;
-  static oauth2.Client client;
+  static String? baseUrl;
+  static oauth2.Client? client;
   static const MethodChannel _channel = const MethodChannel('ypay');
 
-  String _clientId;
-  String _schemeUrl;
+  String? _clientId;
+  late String _schemeUrl;
 
   YPay({
     String baseUrl = 'https://console.y-pay.co',
@@ -58,7 +58,7 @@ class YPay {
     // If we don't have OAuth2 credentials yet, we need to get the resource owner
     // to authorize us. We're assuming here that we're a command-line application.
     var grant = oauth2.AuthorizationCodeGrant(
-      _clientId,
+      _clientId!,
       _authorizationUrl,
       _tokenUrl,
     );
@@ -76,11 +76,11 @@ class YPay {
     client = await grant
         .handleAuthorizationResponse(Uri.parse(result).queryParameters);
 
-    await Token.write(client.credentials);
+    await Token.write(client!.credentials);
     return user;
   }
 
-  Future<User> get user async => client
+  Future<User> get user async => client!
       .get(Uri.parse('$baseUrl/api/user'))
       .then((response) {
         log(response.body);
@@ -90,7 +90,7 @@ class YPay {
   Future signOut() async {
     await _initialize();
 
-    return client
+    return client!
         .post(Uri.parse('$baseUrl/api/v2/me/logout'))
         .whenComplete(Token.delete)
         .then((value) => print(value.statusCode));
